@@ -1,0 +1,531 @@
+{
+    "secciones": [
+        {
+            "titulo": "Fundamentos de Ciencia de Datos",
+            "subsecciones": [
+                {
+                    "subtitulo": "Uso y carga de datos desde archivos",
+                    "preguntas": [
+                        {
+                            "id": 1,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué tipo de archivo se utiliza para almacenar datos en formato tabular?",
+                            "opciones": [
+                                "CSV",
+                                "JSON",
+                                "Excel",
+                                "TXT"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "CSV es el formato más común para almacenar datos en formato tabular."
+                        },
+                        {
+                            "id": 2,
+                            "tipo": "codigo",
+                            "pregunta": "Cree una función que permita cargar datos desde un archivo CSV en Python:",
+                            "codigoInicial": "import pandas as pd\n\ndef cargar_csv(archivo):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def cargar_csv(archivo):\n    return pd.read_csv(archivo)"
+                        },
+                        {
+                            "id": 3,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "Cual es el metodo para remplazar los valores faltantes en un dataframe?",
+                            "opciones": [
+                                "fillna",
+                                "dropna",
+                                "interpolate",
+                                "replace"
+                            ],
+                            "respuestaCorrecta": 0
+                        },
+                        {
+                            "id": 4,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "Cual es el metodo para eliminar los valores faltantes en un dataframe?",
+                            "opciones": [
+                                "dropna",
+                                "fillna",
+                                "interpolate",
+                                "replace"
+                            ],
+                            "respuestaCorrecta": 0
+                        }
+                    ]
+                },
+                {
+                    "subtitulo": "Programación en R",
+                    "preguntas": [
+                        {
+                            "id": 6,
+                            "tipo": "codigo",
+                            "pregunta": "Implemente una función en R que calcule la media y desviación estándar de un vector numérico:",
+                            "codigoInicial": "calcular_estadisticas <- function(vector) {\n  # Tu código aquí\n  return()",
+                            "respuestaCorrecta": "calcular_estadisticas <- function(vector) {\n  media <- mean(vector, na.rm = TRUE)\n  desv <- sd(vector, na.rm = TRUE)\n  return(list(media = media, desviacion = desv))"
+                        },
+                        {
+                            "id": 7, 
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Cuál es la función en R para leer archivos CSV?",
+                            "opciones": [
+                                "read.csv()",
+                                "load.csv()",
+                                "import.csv()",
+                                "open.csv()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "read.csv() es la función base de R para leer archivos CSV"
+                        },
+                        {
+                            "id": 8,
+                            "tipo": "codigo",
+                            "pregunta": "Cree una función que filtre un dataframe en R según una condición:",
+                            "codigoInicial": "filtrar_datos <- function(df, columna, valor) {\n  # Tu código aquí\n  return()",
+                            "respuestaCorrecta": "filtrar_datos <- function(df, columna, valor) {\n  datos_filtrados <- df[df[[columna]] == valor,]\n  return(datos_filtrados)"
+                        },
+                        {
+                            "id": 9,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué paquete se utiliza principalmente para visualización de datos en R?",
+                            "opciones": [
+                                "ggplot2",
+                                "dplyr",
+                                "tidyr",
+                                "data.table"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "ggplot2 es el paquete más popular para crear visualizaciones en R"
+                        },
+                        {
+                            "id": 10,
+                            "tipo": "codigo",
+                            "pregunta": "Implemente una función que realice un análisis de regresión lineal en R:",
+                            "codigoInicial": "analisis_regresion <- function(df, var_dependiente, var_independiente) {\n  # Tu código aquí\n  return()",
+                            "respuestaCorrecta": "analisis_regresion <- function(df, var_dependiente, var_independiente) {\n  formula <- as.formula(paste(var_dependiente, '~', var_independiente))\n  modelo <- lm(formula, data = df)\n  return(summary(modelo))"
+                        },
+                        {
+                            "id": 11,
+                            "tipo": "opcionMultiple", 
+                            "pregunta": "¿Cuál es la forma correcta de crear un vector unidimensional en Python usando NumPy?",
+                            "opciones": [
+                                "np.array([1, 2, 3])",
+                                "array(1, 2, 3)",
+                                "np.vector([1, 2, 3])", 
+                                "np.create_array(1, 2, 3)"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "np.array() es la función correcta para crear arrays en NumPy"
+                        },
+                        {
+                            "id": 12,
+                            "tipo": "codigo",
+                            "pregunta": "Cree una función que genere un vector de números aleatorios entre 0 y 1:",
+                            "codigoInicial": "import numpy as np\n\ndef crear_vector_aleatorio(n):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def crear_vector_aleatorio(n):\n    return np.random.random(n)"
+                        },
+                        {
+                            "id": 13,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Cómo se crea una matriz 2D de ceros en NumPy?",
+                            "opciones": [
+                                "np.zeros((3,3))",
+                                "np.matrix(0,0,0)",
+                                "np.array([[0,0,0]])",
+                                "zeros(3,3)"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "np.zeros() con una tupla de dimensiones es la forma correcta de crear una matriz de ceros"
+                        },
+                        {
+                            "id": 14,
+                            "tipo": "codigo",
+                            "pregunta": "Implemente una función que cree una matriz identidad de tamaño n x n:",
+                            "codigoInicial": "import numpy as np\n\ndef crear_matriz_identidad(n):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def crear_matriz_identidad(n):\n    return np.eye(n)"
+                        },
+                        {
+                            "id": 15,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué método se usa para cambiar la forma de un array en NumPy?",
+                            "opciones": [
+                                ".reshape()",
+                                ".resize()",
+                                ".form()",
+                                ".change_shape()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": ".reshape() es el método para cambiar la forma de un array manteniendo sus elementos"
+                        }
+                    ]
+                },
+                {
+                    "subtitulo": "Graficar en Python y R",
+                    "preguntas": [
+                        {
+                            "id": 16,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué librería se utiliza comúnmente para crear gráficos en Python?",
+                            "opciones": [
+                                "matplotlib",
+                                "graphix",
+                                "plotpy",
+                                "pydraw"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "matplotlib es la librería más común para crear gráficos en Python"
+                        },
+                        {
+                            "id": 17,
+                            "tipo": "codigo",
+                            "pregunta": "Crea un gráfico de dispersión simple usando matplotlib:",
+                            "codigoInicial": "import matplotlib.pyplot as plt\n\ndef grafico_dispersion(x, y):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def grafico_dispersion(x, y):\n    plt.scatter(x, y)\n    plt.xlabel('Eje X')\n    plt.ylabel('Eje Y')\n    plt.title('Gráfico de Dispersión')\n    return plt"
+                        },
+                        {
+                            "id": 18,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué función se usa en R para crear un gráfico básico?",
+                            "opciones": [
+                                "plot()",
+                                "create_plot()",
+                                "draw()",
+                                "graph()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "plot() es la función básica para crear gráficos en R"
+                        },
+                        {
+                            "id": 19,
+                            "tipo": "codigo",
+                            "pregunta": "Crea un histograma simple usando matplotlib:",
+                            "codigoInicial": "import matplotlib.pyplot as plt\n\ndef crear_histograma(datos):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def crear_histograma(datos):\n    plt.hist(datos, bins=30)\n    plt.xlabel('Valores')\n    plt.ylabel('Frecuencia')\n    plt.title('Histograma')\n    return plt"
+                        },
+                        {
+                            "id": 20,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué paquete de R se utiliza comúnmente para crear gráficos más elaborados?",
+                            "opciones": [
+                                "ggplot2",
+                                "plotR",
+                                "Rplot",
+                                "graphR"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "ggplot2 es el paquete más popular para crear gráficos avanzados en R"
+                        },
+                        {
+                            "id": 21,
+                            "tipo": "codigo",
+                            "pregunta": "Crea un gráfico de barras simple usando matplotlib:",
+                            "codigoInicial": "import matplotlib.pyplot as plt\n\ndef grafico_barras(categorias, valores):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def grafico_barras(categorias, valores):\n    plt.bar(categorias, valores)\n    plt.xlabel('Categorías')\n    plt.ylabel('Valores')\n    plt.title('Gráfico de Barras')\n    return plt"
+                        },
+                        {
+                            "id": 22,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Cuál es la función en Python para mostrar el gráfico en pantalla?",
+                            "opciones": [
+                                "plt.show()",
+                                "plt.display()",
+                                "plt.view()",
+                                "plt.print()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "plt.show() es la función para mostrar el gráfico en pantalla"
+                        },
+                        {
+                            "id": 23,
+                            "tipo": "codigo", 
+                            "pregunta": "Crea un gráfico de líneas simple usando matplotlib:",
+                            "codigoInicial": "import matplotlib.pyplot as plt\n\ndef grafico_lineas(x, y):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def grafico_lineas(x, y):\n    plt.plot(x, y)\n    plt.xlabel('Eje X')\n    plt.ylabel('Eje Y')\n    plt.title('Gráfico de Líneas')\n    return plt"
+                        },
+                        {
+                            "id": 24,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué función de matplotlib se utiliza para agregar una leyenda al gráfico?",
+                            "opciones": [
+                                "plt.legend()",
+                                "plt.show_legend()",
+                                "plt.add_legend()",
+                                "plt.display_legend()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "plt.legend() es la función para agregar una leyenda al gráfico"
+                        },
+                        {
+                            "id": 25,
+                            "tipo": "codigo",
+                            "pregunta": "Crea un gráfico de dispersión (scatter plot) usando matplotlib:",
+                            "codigoInicial": "import matplotlib.pyplot as plt\n\ndef grafico_dispersion(x, y):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def grafico_dispersion(x, y):\n    plt.scatter(x, y)\n    plt.xlabel('Eje X')\n    plt.ylabel('Eje Y')\n    plt.title('Gráfico de Dispersión')\n    return plt"
+                        }
+                    ]
+                },
+                {
+                    "subtitulo": "Bases de datos MySQL y XAMPP",
+                    "preguntas": [
+                        {
+                            "id": 26,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Cuál es el puerto por defecto en el que corre MySQL en XAMPP?",
+                            "opciones": [
+                                "3306",
+                                "8080", 
+                                "80",
+                                "443"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "MySQL utiliza por defecto el puerto 3306 en XAMPP"
+                        },
+                        {
+                            "id": 27,
+                            "tipo": "codigo",
+                            "pregunta": "Escribe el comando para crear una base de datos llamada 'tienda' desde la línea de comandos de MySQL:",
+                            "codigoInicial": "# Escribe el comando SQL\n",
+                            "respuestaCorrecta": "CREATE DATABASE tienda;"
+                        },
+                        {
+                            "id": 28,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué comando se usa para iniciar sesión en MySQL desde la línea de comandos?",
+                            "opciones": [
+                                "mysql -u root -p",
+                                "start mysql",
+                                "run mysql",
+                                "open mysql"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "El comando mysql -u root -p permite iniciar sesión como usuario root"
+                        },
+                        {
+                            "id": 29,
+                            "tipo": "codigo",
+                            "pregunta": "Escribe el comando para crear una tabla 'usuarios' con campos id, nombre y email:",
+                            "codigoInicial": "# Escribe el comando SQL\n",
+                            "respuestaCorrecta": "CREATE TABLE usuarios (\n    id INT PRIMARY KEY AUTO_INCREMENT,\n    nombre VARCHAR(50),\n    email VARCHAR(100)\n);"
+                        },
+                        {
+                            "id": 30,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿En qué directorio se instala XAMPP por defecto en Windows?",
+                            "opciones": [
+                                "C:\\xampp",
+                                "C:\\Program Files",
+                                "C:\\Windows",
+                                "C:\\MySQL"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "XAMPP se instala por defecto en C:\\xampp"
+                        },
+                        {
+                            "id": 31,
+                            "tipo": "codigo",
+                            "pregunta": "Escribe el comando para mostrar todas las bases de datos existentes:",
+                            "codigoInicial": "# Escribe el comando SQL\n",
+                            "respuestaCorrecta": "SHOW DATABASES;"
+                        },
+                        {
+                            "id": 32,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué panel de control web proporciona XAMPP para administrar MySQL?",
+                            "opciones": [
+                                "phpMyAdmin",
+                                "MySQLAdmin",
+                                "WebMySQL",
+                                "DBAdmin"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "phpMyAdmin es la herramienta web incluida en XAMPP para administrar MySQL"
+                        },
+                        {
+                            "id": 33,
+                            "tipo": "codigo",
+                            "pregunta": "Escribe el comando para seleccionar y usar una base de datos llamada 'tienda':",
+                            "codigoInicial": "# Escribe el comando SQL\n",
+                            "respuestaCorrecta": "USE tienda;"
+                        },
+                        {
+                            "id": 34,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué archivo se utiliza para configurar MySQL en XAMPP?",
+                            "opciones": [
+                                "my.ini",
+                                "mysql.conf",
+                                "config.mysql",
+                                "xampp.conf"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "El archivo my.ini contiene la configuración de MySQL en XAMPP"
+                        },
+                        {
+                            "id": 35,
+                            "tipo": "codigo",
+                            "pregunta": "Escribe el comando para mostrar todas las tablas de la base de datos actual:",
+                            "codigoInicial": "# Escribe el comando SQL\n",
+                            "respuestaCorrecta": "SHOW TABLES;"
+                        }
+                    ]
+                },
+                {
+                    "subtitulo": "Uso básico de librerías Python: Pandas, matplotlib, Scikit-learn y Spark",
+                    "preguntas": [
+                        {
+                            "id": 36,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Cuál es la función principal de Pandas para leer un archivo CSV?",
+                            "opciones": [
+                                "pd.read_csv()",
+                                "pd.load_csv()",
+                                "pd.import_csv()",
+                                "pd.open_csv()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "pd.read_csv() es la función estándar de Pandas para leer archivos CSV"
+                        },
+                        {
+                            "id": 37,
+                            "tipo": "opcionMultiple", 
+                            "pregunta": "¿Qué librería se utiliza principalmente para Machine Learning en Python?",
+                            "opciones": [
+                                "Scikit-learn",
+                                "Pandas",
+                                "NumPy",
+                                "Matplotlib"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "Scikit-learn es la librería estándar para Machine Learning en Python"
+                        },
+                        {
+                            "id": 38,
+                            "tipo": "codigo",
+                            "pregunta": "Crea un DataFrame simple con dos columnas: 'nombre' y 'edad'",
+                            "codigoInicial": "import pandas as pd\n\ndef crear_dataframe():\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def crear_dataframe():\n    datos = {\n        'nombre': ['Ana', 'Juan', 'María'],\n        'edad': [25, 30, 35]\n    }\n    return pd.DataFrame(datos)"
+                        },
+                        {
+                            "id": 39,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué método de Pandas se usa para ver las primeras filas de un DataFrame?",
+                            "opciones": [
+                                "head()",
+                                "first()",
+                                "top()",
+                                "start()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "El método head() muestra las primeras filas de un DataFrame"
+                        },
+                        {
+                            "id": 40,
+                            "tipo": "codigo",
+                            "pregunta": "Crea un modelo simple de regresión lineal usando scikit-learn",
+                            "codigoInicial": "from sklearn.linear_model import LinearRegression\n\ndef crear_modelo_regresion():\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def crear_modelo_regresion():\n    modelo = LinearRegression()\n    return modelo"
+                        },
+                        {
+                            "id": 41,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué método se usa para eliminar filas con valores nulos en Pandas?",
+                            "opciones": [
+                                "dropna()",
+                                "removena()",
+                                "deletena()",
+                                "clearna()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "dropna() elimina las filas que contienen valores nulos"
+                        },
+                        {
+                            "id": 42,
+                            "tipo": "codigo",
+                            "pregunta": "Divide un conjunto de datos en entrenamiento y prueba",
+                            "codigoInicial": "from sklearn.model_selection import train_test_split\n\ndef dividir_datos(X, y):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def dividir_datos(X, y):\n    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\n    return X_train, X_test, y_train, y_test"
+                        },
+                        {
+                            "id": 43,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Cuál es el propósito principal de PySpark?",
+                            "opciones": [
+                                "Procesamiento de datos a gran escala",
+                                "Visualización de datos",
+                                "Análisis estadístico",
+                                "Webscraping"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "PySpark se usa principalmente para procesar grandes volúmenes de datos"
+                        },
+                        {
+                            "id": 44,
+                            "tipo": "codigo",
+                            "pregunta": "Calcula estadísticas básicas de un DataFrame",
+                            "codigoInicial": "import pandas as pd\n\ndef estadisticas_basicas(df):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def estadisticas_basicas(df):\n    return df.describe()"
+                        },
+                        {
+                            "id": 45,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué método se usa para agrupar datos en Pandas?",
+                            "opciones": [
+                                "groupby()",
+                                "group()",
+                                "aggregate()",
+                                "cluster()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "groupby() se usa para agrupar datos según una o más columnas"
+                        },
+                        {
+                            "id": 46,
+                            "tipo": "codigo",
+                            "pregunta": "Crea un modelo de clasificación usando K-Nearest Neighbors",
+                            "codigoInicial": "from sklearn.neighbors import KNeighborsClassifier\n\ndef crear_modelo_knn():\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def crear_modelo_knn():\n    modelo = KNeighborsClassifier(n_neighbors=5)\n    return modelo"
+                        },
+                        {
+                            "id": 47,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué librería se usa para visualizar datos en Python?",
+                            "opciones": [
+                                "Matplotlib",
+                                "Scikit-learn",
+                                "Pandas",
+                                "NumPy"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "Matplotlib es la librería principal para visualización de datos"
+                        },
+                        {
+                            "id": 48,
+                            "tipo": "codigo",
+                            "pregunta": "Normaliza una columna numérica en un DataFrame",
+                            "codigoInicial": "from sklearn.preprocessing import MinMaxScaler\n\ndef normalizar_columna(df, columna):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def normalizar_columna(df, columna):\n    scaler = MinMaxScaler()\n    df[columna] = scaler.fit_transform(df[[columna]])\n    return df"
+                        },
+                        {
+                            "id": 49,
+                            "tipo": "opcionMultiple",
+                            "pregunta": "¿Qué función se usa para concatenar DataFrames en Pandas?",
+                            "opciones": [
+                                "pd.concat()",
+                                "pd.merge()",
+                                "pd.join()",
+                                "pd.append()"
+                            ],
+                            "respuestaCorrecta": 0,
+                            "explicacion": "pd.concat() se usa para concatenar DataFrames vertical u horizontalmente"
+                        },
+                        {
+                            "id": 50,
+                            "tipo": "codigo",
+                            "pregunta": "Crea una matriz de correlación para un DataFrame",
+                            "codigoInicial": "import pandas as pd\n\ndef matriz_correlacion(df):\n    # Tu código aquí\n    return",
+                            "respuestaCorrecta": "def matriz_correlacion(df):\n    return df.corr()"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+} 

@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación Profesional de Data Science</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+
+        .seccion {
+            background-color: white;
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .seccion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #2196F3;
+            color: white;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .seccion-header:hover {
+            background-color: #1976D2;
+        }
+
+        .seccion-header i {
+            transition: transform 0.3s ease;
+        }
+
+        .seccion-header.collapsed i {
+            transform: rotate(-90deg);
+        }
+
+        .subseccion {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .subseccion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #e3f2fd;
+            border-radius: 4px;
+        }
+
+        .subseccion-content {
+            display: none;
+            padding: 15px;
+        }
+
+        .subseccion-content.active {
+            display: block;
+        }
+
+        .pregunta {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .pregunta p {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .codigo {
+            position: relative;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .codigo-header {
+            background-color: #2d2d2d;
+            padding: 12px 15px;
+            color: #fff;
+            font-size: 0.9em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #3d3d3d;
+        }
+
+        .codigo-content {
+            padding: 15px;
+            overflow-x: auto;
+        }
+
+        pre {
+            margin: 0;
+            padding: 15px;
+            background-color: #1e1e1e !important;
+            border-radius: 0 0 8px 8px;
+        }
+
+        code {
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .copy-button {
+            background-color: transparent;
+            border: 1px solid #ffffff3d;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .copy-button:hover {
+            background-color: #ffffff1a;
+        }
+
+        .opciones-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .opcion {
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .opcion:hover {
+            background-color: #e3f2fd;
+            border-color: #2196F3;
+        }
+
+        .explicacion {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+            border-radius: 4px;
+        }
+
+        #btnEnviar {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            margin: 20px;
+            box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+        }
+
+        #btnEnviar:hover {
+            background-color: #1976D2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(33, 150, 243, 0.4);
+        }
+
+        .codigo-editor {
+            width: 100%;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 15px;
+            border: none;
+            border-radius: 0;
+            resize: vertical;
+            min-height: 120px;
+            outline: none;
+        }
+
+        .codigo-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .codigo-buttons button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .edit-button {
+            background-color: #2196F3 !important;
+        }
+
+        .edit-button:hover {
+            background-color: #1976D2 !important;
+        }
+
+        .edit-button.editing {
+            background-color: #dc3545 !important;
+        }
+
+        .save-button {
+            background-color: #4CAF50 !important;
+        }
+
+        .save-button:hover {
+            background-color: #45a049 !important;
+        }
+
+        .codigo-preview {
+            margin: 0;
+            padding: 15px;
+            background-color: #1e1e1e !important;
+        }
+
+        .resultado-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .resumen-preguntas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .pregunta-indicador {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .pregunta-indicador:hover {
+            transform: scale(1.1);
+        }
+
+        .pregunta-correcta {
+            background-color: #e8f5e9;
+            border: 2px solid #4CAF50;
+        }
+
+        .pregunta-incorrecta {
+            background-color: #ffebee;
+            border: 2px solid #f44336;
+        }
+
+        .grafico-container {
+            position: relative;
+            width: 200px;
+            margin: 20px auto;
+        }
+
+        .porcentaje-total {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .resultado-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2196F3;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .resultado-detalle {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .seccion-resultado {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .seccion-resultado h3 {
+            color: #2196F3;
+            margin-bottom: 10px;
+        }
+
+        .pregunta-resultado {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+
+        .pregunta-resultado:hover {
+            background-color: #f5f5f5;
+        }
+
+        .correcta {
+            color: #4CAF50;
+            font-weight: 500;
+        }
+
+        .incorrecta {
+            color: #f44336;
+            font-weight: 500;
+        }
+
+        .respuesta-detalle {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .respuesta-correcta {
+            background-color: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .respuesta-incorrecta {
+            background-color: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+        }
+
+        .indicador {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .indicador i {
+            font-size: 1.2em;
+        }
+
+        .respuesta-usuario {
+            color: #666;
+            font-style: italic;
+        }
+
+        .respuesta-correcta-texto {
+            color: #1b5e20;
+            font-weight: 500;
+        }
+
+        .respuesta-incorrecta-texto {
+            color: #b71c1c;
+            font-weight: 500;
+        }
+
+        .feedback-container {
+            padding: 10px;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .retroalimentacion {
+            margin-top: 20px;
+        }
+
+        .feedback-item {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+
+        .feedback-item.correcto {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .feedback-item.incorrecto {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .codigo-incorrecto {
+            background-color: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .codigo-incorrecto pre {
+            margin-top: 10px;
+            background-color: #1e1e1e;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .codigo-incorrecto code {
+            color: #e0e0e0;
+        }
+
+        .resultado-item {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        .resultado-item.correcto {
+            border-left: 4px solid #4CAF50;
+        }
+
+        .resultado-item.incorrecto {
+            border-left: 4px solid #f44336;
+        }
+
+        .resultado-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .pregunta-numero {
+            font-weight: bold;
+        }
+
+        .resultado-estado {
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .resultado-item.correcto .resultado-estado {
+            color: #4CAF50;
+        }
+
+        .resultado-item.incorrecto .resultado-estado {
+            color: #f44336;
+        }
+
+        .codigo-solucion {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .codigo-solucion pre {
+            margin: 0;
+            padding: 10px;
+            background-color: #1e1e1e;
+            border-radius: 4px;
+        }
+
+        .codigo-solucion code {
+            color: #e0e0e0;
+        }
+
+        /* Modificar los estilos del contador para que esté en la parte superior */
+        .contador {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(33, 150, 243, 0.9);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1000;
+            min-width: 80px;
+            transition: all 0.3s ease;
+        }
+
+        /* Agregar estilos para estados de advertencia */
+        .contador.advertencia {
+            background-color: rgba(255, 152, 0, 0.9);
+            animation: parpadeo 1s infinite;
+        }
+
+        .contador.peligro {
+            background-color: rgba(244, 67, 54, 0.9);
+            animation: parpadeo 0.5s infinite;
+        }
+
+        @keyframes parpadeo {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Ajustar el margen superior del contenido para que no se oculte bajo el contador */
+        #contenidoPrueba {
+            margin-top: 70px;
+        }
+
+        /* Estilos para el formulario de nombre */
+        .formulario-inicio {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .campo-nombre {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .historial-intentos {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .intento-previo {
+            padding: 8px;
+            margin: 5px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Estilos para el botón de inicio */
+        .boton-inicio {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .boton-inicio:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Estilos para los modales */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-contenido {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            animation: modalEntrada 0.3s ease;
+        }
+
+        @keyframes modalEntrada {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal h3 {
+            color: #2196F3;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            margin-bottom: 20px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .modal-botones {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.confirmar {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .modal-btn.confirmar:hover {
+            background-color: #1976D2;
+        }
+
+        .modal-btn.cancelar {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .modal-btn.cancelar:hover {
+            background-color: #d5d5d5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Evaluación de Data Science</h1>
+    
+    <!-- Modificar la pantalla de inicio para incluir el campo de nombre -->
+    <div id="pantallaInicio" style="text-align: center; margin: 50px;">
+        <h2>Bienvenido a la Evaluación de Data Science</h2>
+        <div class="formulario-inicio">
+            <h3>Ingresa tu nombre para comenzar</h3>
+            <input type="text" id="nombreUsuario" class="campo-nombre" placeholder="Tu nombre completo" required>
+            <p>Tiempo de la prueba: 1 minuto</p>
+            <button id="btnIniciar" class="boton-inicio" disabled>Iniciar Prueba</button>
+            
+            <div class="historial-intentos">
+                <h4>Intentos previos</h4>
+                <div id="listaIntentos"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido de la prueba (inicialmente oculto) -->
+    <div id="contenidoPrueba" style="display: none;">
+        <div id="contador" class="contador">
+            <span id="tiempo">01:00</span>
+        </div>
+        <div id="contenedorPreguntas"></div>
+        <button id="btnEnviar">Enviar Respuestas</button>
+    </div>
+
+    <div id="resultadoContainer" class="resultado-container" style="display: none;">
+        <h2>Resultados de la Evaluación</h2>
+        <div class="resultado-stats">
+            <div class="stat-card">
+                <div class="stat-value">0/0</div>
+                <div class="stat-label">Correctas</div>
+            </div>
+        </div>
+
+        <div class="grafico-container">
+            <canvas id="graficoCircular"></canvas>
+            <div class="porcentaje-total">0%</div>
+        </div>
+
+        <div id="resultadoDetalle"></div>
+    </div>
+
+    <!-- Agregar los modales al HTML -->
+    <div id="modalConfirmacion" class="modal">
+        <div class="modal-contenido">
+            <h3>Confirmar envío</h3>
+            <p>¿Estás seguro de que deseas enviar tus respuestas?</p>
+            <div class="modal-botones">
+                <button class="modal-btn confirmar">Sí, enviar</button>
+                <button class="modal-btn cancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalTiempoAgotado" class="modal">
+        <div class="modal-contenido">
+            <h3>Tiempo agotado</h3>
+            <p>Se acabó el tiempo. La evaluación ha sido enviada automáticamente.</p>
+            <div class="modal-botones">
+                <button class="modal-btn confirmar">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-bash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let preguntasData = {}; // Añadimos esta variable global
+
+        // Agregar variables y funciones para el contador
+        let tiempoTotal = 60; // 60 segundos para prueba
+        let tiempoRestante = tiempoTotal;
+        let contadorInterval;
+
+        // Agregar variables para el estado de la sesión
+        let sesionActual = JSON.parse(localStorage.getItem('sesionActual') || 'null');
+        let tiempoInicio = parseInt(localStorage.getItem('tiempoInicio') || '0');
+
+        async function cargarPreguntas() {
+            try {
+                const respuesta = await fetch('preguntas.json');
+                const datos = await respuesta.json();
+                
+                // Agregar los estilos al head
+                document.head.insertAdjacentHTML('beforeend', `
+                    <style>
+                        .datos-analisis {
+                            background-color: #f8f9fa;
+                            padding: 15px;
+                            border-radius: 8px;
+                            margin: 15px 0;
+                        }
+
+                        .tabla-metricas {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-bottom: 15px;
+                        }
+
+                        .tabla-metricas td {
+                            padding: 8px;
+                            border-bottom: 1px solid #dee2e6;
+                        }
+
+                        .matriz-confusion {
+                            margin: 15px 0;
+                        }
+
+                        .matriz-confusion table {
+                            border-collapse: collapse;
+                            margin: 10px auto;
+                            background-color: white;
+                        }
+
+                        .matriz-confusion td {
+                            padding: 10px;
+                            border: 1px solid #dee2e6;
+                            text-align: center;
+                        }
+
+                        .respuesta-analisis {
+                            width: 100%;
+                            padding: 10px;
+                            border: 1px solid #ced4da;
+                            border-radius: 4px;
+                            margin-top: 15px;
+                            resize: vertical;
+                        }
+                    </style>
+                `);
+                
+                // Convertir el array de preguntas a un objeto indexado por ID
+                datos.secciones.forEach(seccion => {
+                    seccion.subsecciones.forEach(subseccion => {
+                        subseccion.preguntas.forEach(pregunta => {
+                            preguntasData[pregunta.id] = pregunta;
+                        });
+                    });
+                });
+
+                const contenedor = document.getElementById('contenedorPreguntas');
+                
+                datos.secciones.forEach((seccion, indexSeccion) => {
+                    const seccionDiv = document.createElement('div');
+                    seccionDiv.className = 'seccion';
+                    
+                    // Crear encabezado de sección con botón para desplegar/colapsar
+                    const seccionHeader = document.createElement('div');
+                    seccionHeader.className = 'seccion-header';
+                    seccionHeader.innerHTML = `
+                        <h2>Sección ${indexSeccion + 1}: ${seccion.titulo}</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    `;
+                    
+                    const seccionContent = document.createElement('div');
+                    seccionContent.className = 'seccion-content';
+
+                    seccion.subsecciones.forEach((subseccion, indexSubseccion) => {
+                        const subseccionDiv = document.createElement('div');
+                        subseccionDiv.className = 'subseccion';
+                        
+                        // Crear encabezado de subsección
+                        const subseccionHeader = document.createElement('div');
+                        subseccionHeader.className = 'subseccion-header';
+                        subseccionHeader.innerHTML = `
+                            <h3>${subseccion.subtitulo}</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        `;
+                        
+                        const subseccionContent = document.createElement('div');
+                        subseccionContent.className = 'subseccion-content';
+
+                        subseccion.preguntas.forEach(pregunta => {
+                            const preguntaDiv = document.createElement('div');
+                            preguntaDiv.className = 'pregunta';
+                            preguntaDiv.dataset.id = pregunta.id;
+
+                            switch(pregunta.tipo) {
+                                case 'codigo':
+                                    const esComandoShell = pregunta.codigoInicial.includes('#') && 
+                                                      (pregunta.pregunta.toLowerCase().includes('comando') || 
+                                                       pregunta.pregunta.toLowerCase().includes('sql'));
+                                    const esPython = !esComandoShell && (
+                                        pregunta.codigoInicial.includes('import') || 
+                                        pregunta.codigoInicial.includes('def') || 
+                                        pregunta.codigoInicial.includes('print')
+                                    );
+                                    
+                                    preguntaDiv.innerHTML = `
+                                        <p>${pregunta.pregunta}</p>
+                                        <div class="codigo">
+                                            <div class="codigo-header">
+                                                <span>${esComandoShell ? 'Shell' : (esPython ? 'Python' : 'R')}</span>
+                                                <div class="codigo-buttons">
+                                                    <button class="edit-button" onclick="toggleEdicion(this)">
+                                                        <i class="fas fa-edit"></i> Editar
+                                                    </button>
+                                                    <button class="copy-button" onclick="copiarCodigo(this)">
+                                                        <i class="far fa-copy"></i> Copiar
+                                                    </button>
+                                                    <button class="save-button" onclick="guardarCodigo(this)" style="display: none;">
+                                                        <i class="far fa-save"></i> Guardar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="codigo-content">
+                                                <pre class="codigo-preview ${esComandoShell ? 'language-shell' : (esPython ? 'language-python' : 'language-r')}"><code>${pregunta.codigoInicial}</code></pre>
+                                                <textarea class="codigo-editor" style="display: none;" spellcheck="false">${pregunta.codigoInicial}</textarea>
+                                            </div>
+                                        </div>
+                                    `;
+                                    break;
+
+                                case 'opcionMultiple':
+                                    preguntaDiv.innerHTML = `
+                                        <p>${pregunta.pregunta}</p>
+                                        ${pregunta.opciones.map((opcion, index) => `
+                                            <input type="radio" name="pregunta${pregunta.id}" value="${index}">
+                                            ${opcion}<br>
+                                        `).join('')}
+                                    `;
+                                    break;
+
+                                case 'verdaderoFalso':
+                                    preguntaDiv.innerHTML = `
+                                        <p>${pregunta.pregunta}</p>
+                                        <input type="radio" name="pregunta${pregunta.id}" value="verdadero"> Verdadero<br>
+                                        <input type="radio" name="pregunta${pregunta.id}" value="falso"> Falso<br>
+                                    `;
+                                    break;
+
+                                case 'analisis':
+                                    preguntaDiv.innerHTML = mostrarPreguntaAnalisis(pregunta.pregunta, pregunta.datos);
+                                    break;
+                            }
+
+                            subseccionContent.appendChild(preguntaDiv);
+                        });
+
+                        subseccionDiv.appendChild(subseccionHeader);
+                        subseccionDiv.appendChild(subseccionContent);
+                        seccionContent.appendChild(subseccionDiv);
+                    });
+
+                    seccionDiv.appendChild(seccionHeader);
+                    seccionDiv.appendChild(seccionContent);
+                    contenedor.appendChild(seccionDiv);
+                });
+
+                // Agregar event listeners para desplegar/colapsar
+                document.querySelectorAll('.seccion-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        // Cerrar todas las demás secciones primero
+                        document.querySelectorAll('.seccion-content').forEach(content => {
+                            if (content !== header.nextElementSibling) {
+                                content.style.display = 'none';
+                                content.previousElementSibling.classList.add('collapsed');
+                            }
+                        });
+
+                        // Abrir/cerrar la sección actual
+                        const content = header.nextElementSibling;
+                        header.classList.toggle('collapsed');
+                        content.style.display = content.style.display === 'none' ? 'block' : 'none';
+                    });
+                });
+
+                document.querySelectorAll('.subseccion-header').forEach(header => {
+                    header.addEventListener('click', () => {
+                        // Cerrar todas las demás subsecciones de la misma sección
+                        const seccionActual = header.closest('.seccion');
+                        seccionActual.querySelectorAll('.subseccion-content').forEach(content => {
+                            if (content !== header.nextElementSibling) {
+                                content.classList.remove('active');
+                                content.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+                            }
+                        });
+
+                        // Abrir/cerrar la subsección actual
+                        const content = header.nextElementSibling;
+                        header.querySelector('i').style.transform = 
+                            content.classList.contains('active') ? 'rotate(0deg)' : 'rotate(-180deg)';
+                        content.classList.toggle('active');
+                    });
+                });
+
+                // Para las preguntas de análisis, formatear mejor los datos
+                document.querySelectorAll('.pregunta').forEach(pregunta => {
+                    if (pregunta.querySelector('.codigo')) {
+                        const datosJSON = pregunta.querySelector('.codigo');
+                        try {
+                            const datos = JSON.parse(datosJSON.textContent);
+                            // Formatear los datos de manera más legible
+                            datosJSON.innerHTML = JSON.stringify(datos, null, 2)
+                                .replace(/\n/g, '<br>')
+                                .replace(/ /g, '&nbsp;');
+                        } catch (e) {
+                            console.error('Error al formatear JSON:', e);
+                        }
+                    }
+                });
+
+                // Inicializar Prism.js para el resaltado de código
+                Prism.highlightAll();
+
+            } catch (error) {
+                console.error('Error al cargar las preguntas:', error);
+            }
+        }
+
+        // Función para copiar código
+        function copiarCodigo(button) {
+            const codeBlock = button.closest('.codigo');
+            const text = codeBlock.querySelector('code');
+            const preview = codeBlock.querySelector('.codigo-preview');
+            
+            navigator.clipboard.writeText(text.textContent).then(() => {
+                button.innerHTML = '<i class="fas fa-check"></i> Copiado';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i> Copiar';
+                }, 2000);
+            });
+        }
+
+        // Función para guardar código
+        function guardarCodigo(button) {
+            const codigoBlock = button.closest('.codigo');
+            const preview = codigoBlock.querySelector('.codigo-preview code');
+            const editor = codigoBlock.querySelector('.codigo-editor');
+            const editButton = codigoBlock.querySelector('.edit-button');
+            
+            // Actualizar el código visible
+            preview.textContent = editor.value;
+            
+            // Guardar en localStorage
+            const preguntaId = button.closest('.pregunta').dataset.id;
+            localStorage.setItem(`respuesta_codigo_${preguntaId}`, editor.value);
+            
+            // Volver a modo visualización
+            preview.parentElement.style.display = 'block';
+            editor.style.display = 'none';
+            button.style.display = 'none';
+            editButton.classList.remove('editing');
+            editButton.innerHTML = '<i class="fas fa-edit"></i> Editar';
+            
+            // Actualizar el resaltado de sintaxis
+            Prism.highlightElement(preview);
+            
+            // Mostrar mensaje de éxito
+            mostrarMensajeExito(codigoBlock);
+        }
+
+        function mostrarMensajeExito(codigoBlock) {
+            const mensaje = document.createElement('div');
+            mensaje.className = 'mensaje-exito';
+            mensaje.innerHTML = '<i class="fas fa-check"></i> Código guardado';
+            mensaje.style.cssText = `
+                position: absolute;
+                right: 15px;
+                top: 60px;
+                background-color: #4CAF50;
+                color: white;
+                padding: 8px 12px;
+                border-radius: 4px;
+                font-size: 12px;
+                opacity: 0;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+            `;
+            
+            codigoBlock.appendChild(mensaje);
+            
+            // Animar la aparición del mensaje
+            setTimeout(() => {
+                mensaje.style.opacity = '1';
+                mensaje.style.transform = 'translateY(0)';
+            }, 50);
+            
+            // Eliminar el mensaje después de 2 segundos
+            setTimeout(() => {
+                mensaje.style.opacity = '0';
+                mensaje.style.transform = 'translateY(-10px)';
+                setTimeout(() => mensaje.remove(), 300);
+            }, 2000);
+        }
+
+        // Función para cargar respuestas guardadas
+        function cargarRespuestasGuardadas() {
+            if (sesionActual && sesionActual.respuestas) {
+                Object.entries(sesionActual.respuestas).forEach(([preguntaId, respuesta]) => {
+                    const preguntaElement = document.querySelector(`[data-id="${preguntaId}"]`);
+                    if (preguntaElement) {
+                        // Restaurar respuestas según el tipo de pregunta
+                        if (preguntaElement.querySelector('.codigo-editor')) {
+                            preguntaElement.querySelector('.codigo-editor').value = respuesta;
+                            preguntaElement.querySelector('.codigo-preview code').textContent = respuesta;
+                        } else if (preguntaElement.querySelector('input[type="radio"]')) {
+                            const radio = preguntaElement.querySelector(`input[value="${respuesta}"]`);
+                            if (radio) radio.checked = true;
+                        }
+                    }
+                });
+            }
+        }
+
+        function toggleEdicion(button) {
+            const codigoBlock = button.closest('.codigo');
+            const preview = codigoBlock.querySelector('.codigo-preview');
+            const editor = codigoBlock.querySelector('.codigo-editor');
+            const saveButton = codigoBlock.querySelector('.save-button');
+            
+            if (!button.classList.contains('editing')) {
+                // Cambiar a modo edición
+                preview.style.display = 'none';
+                editor.style.display = 'block';
+                saveButton.style.display = 'inline-flex';
+                button.innerHTML = '<i class="fas fa-times"></i> Cancelar';
+                button.classList.add('editing');
+                editor.focus();
+            } else {
+                // Volver a modo visualización
+                preview.style.display = 'block';
+                editor.style.display = 'none';
+                saveButton.style.display = 'none';
+                button.innerHTML = '<i class="fas fa-edit"></i> Editar';
+                button.classList.remove('editing');
+            }
+        }
+
+        function mostrarPreguntaAnalisis(pregunta, datos) {
+            return `
+                <p>${pregunta}</p>
+                <div class="datos-analisis">
+                    <table class="tabla-metricas">
+                        ${Object.entries(datos).map(([clave, valor]) => {
+                            if (clave === 'matriz_confusion') {
+                                return `
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="matriz-confusion">
+                                                <h4>Matriz de Confusión:</h4>
+                                                <table>
+                                                    ${valor.map(fila => `
+                                                        <tr>
+                                                            ${fila.map(celda => `
+                                                                <td>${celda}</td>
+                                                            `).join('')}
+                                                        </tr>
+                                                    `).join('')}
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `;
+                            } else {
+                                return `
+                                    <tr>
+                                        <td>${clave}:</td>
+                                        <td>${valor}</td>
+                                    </tr>
+                                `;
+                            }
+                        }).join('')}
+                    </table>
+                </div>
+                <textarea class="respuesta-analisis" rows="4" placeholder="Escriba su análisis aquí..."></textarea>
+            `;
+        }
+
+        async function evaluarRespuestas() {
+            const preguntas = document.querySelectorAll('.pregunta');
+            let resultados = {
+                total: preguntas.length,
+                correctas: 0,
+                retroalimentacion: []
+            };
+
+            for (const pregunta of preguntas) {
+                const id = pregunta.dataset.id;
+                const preguntaData = preguntasData[id];
+                let esCorrecta = false;
+                let feedback = '';
+
+                // Primero verificamos si hay respuesta
+                const respuestaVacia = verificarRespuestaVacia(pregunta, preguntaData.tipo);
+                
+                if (respuestaVacia) {
+                    esCorrecta = false;
+                    feedback = "No has contestado esta pregunta";
+                } else {
+                    try {
+                        switch (preguntaData.tipo) {
+                            case 'opcionMultiple':
+                            case 'verdaderoFalso':
+                                const seleccionada = pregunta.querySelector('input[type="radio"]:checked');
+                                esCorrecta = parseInt(seleccionada.value) === preguntaData.respuestaCorrecta;
+                                feedback = esCorrecta ? 
+                                    "¡Correcto! Has elegido la respuesta adecuada." : 
+                                    "Incorrecto. La respuesta correcta era: " + preguntaData.opciones[preguntaData.respuestaCorrecta];
+                                break;
+
+                            case 'codigo':
+                                const codigoUsuario = pregunta.querySelector('.codigo-editor').value.trim();
+                                esCorrecta = evaluarCodigoLocalmente(codigoUsuario, preguntaData.respuestaCorrecta);
+                                feedback = esCorrecta ? 
+                                    "¡Correcto! Tu código cumple con los requisitos." : 
+                                    "Incorrecto. Revisa la solución esperada y compara con tu código.";
+                                break;
+
+                            case 'analisis':
+                                const analisisUsuario = pregunta.querySelector('textarea').value.trim();
+                                // Para análisis, podemos hacer una evaluación básica de longitud y palabras clave
+                                esCorrecta = evaluarAnalisisLocalmente(analisisUsuario);
+                                feedback = esCorrecta ? 
+                                    "Tu análisis es adecuado." : 
+                                    "Tu análisis necesita más desarrollo o no aborda todos los puntos necesarios.";
+                                break;
+                        }
+                    } catch (error) {
+                        console.error('Error en evaluación:', error);
+                        esCorrecta = false;
+                        feedback = "Error al evaluar la respuesta";
+                    }
+                }
+
+                resultados.retroalimentacion.push({ 
+                    id, 
+                    esCorrecta, 
+                    feedback,
+                    tipo: preguntaData.tipo
+                });
+
+                if (esCorrecta) resultados.correctas++;
+            }
+
+            const porcentaje = ((resultados.correctas / resultados.total) * 100).toFixed(1);
+            
+            // Guardar el resultado en el historial
+            const intentos = JSON.parse(localStorage.getItem('intentos') || '[]');
+            const nuevoIntento = {
+                nombre: sesionActual.nombre,
+                fecha: new Date().toLocaleString(),
+                puntaje: porcentaje
+            };
+            intentos.push(nuevoIntento);
+            localStorage.setItem('intentos', JSON.stringify(intentos));
+
+            // Mostrar los resultados
+            document.getElementById('contenidoPrueba').style.display = 'none';
+            document.getElementById('resultadoContainer').style.display = 'block';
+            
+            mostrarResultadosDetallados(resultados);
+            mostrarHistorialIntentos();
+        }
+
+        function verificarRespuestaVacia(pregunta, tipo) {
+            switch (tipo) {
+                case 'opcionMultiple':
+                case 'verdaderoFalso':
+                    return !pregunta.querySelector('input[type="radio"]:checked');
+                    
+                case 'codigo':
+                    const codigo = pregunta.querySelector('.codigo-editor').value.trim();
+                    return codigo === '';
+                    
+                case 'analisis':
+                    const analisis = pregunta.querySelector('textarea').value.trim();
+                    return analisis === '';
+                    
+                default:
+                    return true;
+            }
+        }
+
+        function evaluarCodigoLocalmente(codigoUsuario, codigoEsperado) {
+            // Eliminar espacios en blanco y comentarios para comparación básica
+            const limpiarCodigo = (codigo) => {
+                return codigo
+                    .replace(/\s+/g, '')
+                    .replace(/#.*$/gm, '')
+                    .toLowerCase();
+            };
+            
+            return limpiarCodigo(codigoUsuario) === limpiarCodigo(codigoEsperado);
+        }
+
+        function evaluarAnalisisLocalmente(analisis) {
+            // Evaluación básica: longitud mínima y presencia de palabras clave
+            const longitudMinima = 50;
+            const palabrasClave = ['análisis', 'datos', 'resultado', 'conclusión'];
+            
+            if (analisis.length < longitudMinima) return false;
+            
+            const contienepalabrasClaves = palabrasClave.some(palabra => 
+                analisis.toLowerCase().includes(palabra)
+            );
+            
+            return contienepalabrasClaves;
+        }
+
+        function actualizarContadorInicial() {
+            // Contar todas las preguntas del JSON
+            let totalPreguntas = 0;
+            const secciones = preguntasData;
+            
+            // Recorrer el objeto preguntasData para contar todas las preguntas
+            Object.keys(preguntasData).forEach(key => {
+                if (preguntasData[key]) {
+                    totalPreguntas++;
+                }
+            });
+
+            console.log('Total real de preguntas:', totalPreguntas);
+            
+            // Actualizar todos los contadores
+            document.querySelectorAll('.stat-value').forEach(contador => {
+                contador.textContent = `0/${totalPreguntas}`;
+            });
+        }
+
+        function mostrarResultadosDetallados(resultados) {
+            const container = document.getElementById('resultadoContainer');
+            const totalPreguntas = Object.keys(preguntasData).length; // Usar el total real de preguntas
+            const porcentaje = ((resultados.correctas / totalPreguntas) * 100).toFixed(1);
+            
+            // Actualizar estadísticas básicas
+            document.querySelectorAll('.stat-value').forEach(contador => {
+                contador.textContent = `${resultados.correctas}/${totalPreguntas}`;
+            });
+            
+            document.querySelector('.porcentaje-total').textContent = `${porcentaje}%`;
+
+            // Actualizar el contador inicial también
+            document.querySelector('h2').textContent = `Resultados de la Evaluación (${resultados.correctas}/${totalPreguntas})`;
+
+            // Actualizar gráfico
+            const ctx = document.getElementById('graficoCircular').getContext('2d');
+            if (window.graficoResultados) {
+                window.graficoResultados.destroy();
+            }
+            
+            window.graficoResultados = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correctas', 'Incorrectas'],
+                    datasets: [{
+                        data: [resultados.correctas, totalPreguntas - resultados.correctas],
+                        backgroundColor: ['#4CAF50', '#f44336'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Mostrar retroalimentación
+            const detalleContainer = document.getElementById('resultadoDetalle');
+            detalleContainer.innerHTML = resultados.retroalimentacion.map(r => `
+                <div class="resultado-item ${r.esCorrecta ? 'correcto' : 'incorrecto'}">
+                    <div class="resultado-header">
+                        <span class="pregunta-numero">Pregunta ${r.id}</span>
+                        <span class="resultado-estado">
+                            ${r.esCorrecta ? 
+                                '<i class="fas fa-check"></i> Correcto' : 
+                                '<i class="fas fa-times"></i> Incorrecto'}
+                        </span>
+                    </div>
+                    <div class="resultado-feedback">
+                        ${r.feedback}
+                        ${!r.esCorrecta && r.tipo === 'codigo' ? `
+                            <div class="codigo-solucion">
+                                <p>Solución esperada:</p>
+                                <pre><code class="language-python">${preguntasData[r.id].respuestaCorrecta}</code></pre>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // Resaltar código si hay ejemplos de código
+            if (Prism) {
+                Prism.highlightAll();
+            }
+
+            container.style.display = 'block';
+        }
+
+        // Agregar este código después de cargarPreguntas()
+        const observer = new MutationObserver((mutations) => {
+            const totalPreguntas = document.querySelectorAll('.pregunta').length;
+            if (totalPreguntas > 0) {
+                const contadorInicial = document.querySelector('.stat-value');
+                if (contadorInicial) {
+                    contadorInicial.textContent = `0/${totalPreguntas}`;
+                    observer.disconnect();
+                }
+            }
+        });
+
+        observer.observe(document.getElementById('contenedorPreguntas'), {
+            childList: true,
+            subtree: true
+        });
+
+        function iniciarContador() {
+            const elementoTiempo = document.getElementById('tiempo');
+            
+            contadorInterval = setInterval(() => {
+                tiempoRestante--;
+                
+                // Convertir segundos a formato mm:ss
+                const minutos = Math.floor(tiempoRestante / 60);
+                const segundos = tiempoRestante % 60;
+                const tiempoFormateado = `${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+                
+                elementoTiempo.textContent = tiempoFormateado;
+                
+                // Agregar clases de advertencia
+                const contenedorContador = document.getElementById('contador');
+                if (tiempoRestante <= 30 && tiempoRestante > 10) {
+                    contenedorContador.className = 'contador advertencia';
+                } else if (tiempoRestante <= 10) {
+                    contenedorContador.className = 'contador peligro';
+                }
+                
+                // Cuando se acaba el tiempo
+                if (tiempoRestante <= 0) {
+                    clearInterval(contadorInterval);
+                    finalizarEvaluacion();
+                }
+            }, 1000);
+        }
+
+        function finalizarEvaluacion() {
+            clearInterval(contadorInterval);
+            
+            // Deshabilitar todas las entradas
+            document.querySelectorAll('input, textarea, .edit-button, .copy-button, .save-button').forEach(elemento => {
+                elemento.disabled = true;
+            });
+            
+            // Ocultar el contador y el botón de enviar
+            document.getElementById('contador').style.display = 'none';
+            document.getElementById('btnEnviar').style.display = 'none';
+            
+            // Evaluar respuestas y guardar resultado
+            evaluarRespuestas();
+            
+            // Limpiar la sesión
+            localStorage.removeItem('sesionActual');
+            localStorage.removeItem('tiempoInicio');
+            sesionActual = null;
+            
+            // Mostrar modal de tiempo agotado
+            mostrarModal('modalTiempoAgotado');
+        }
+
+        // Agregar validación del nombre
+        document.getElementById('nombreUsuario').addEventListener('input', function() {
+            document.getElementById('btnIniciar').disabled = !this.value.trim();
+        });
+
+        // Función para verificar si hay una sesión activa
+        function verificarSesion() {
+            if (sesionActual) {
+                const tiempoTranscurrido = Math.floor((Date.now() - tiempoInicio) / 1000);
+                
+                if (tiempoTranscurrido >= tiempoTotal) {
+                    // Si se acabó el tiempo, mostrar resultados finales
+                    finalizarEvaluacion();
+                    return false;
+                }
+                
+                // Restaurar la sesión en progreso
+                document.getElementById('pantallaInicio').style.display = 'none';
+                document.getElementById('contenidoPrueba').style.display = 'block';
+                
+                // Restaurar el tiempo restante
+                tiempoRestante = Math.max(0, tiempoTotal - tiempoTranscurrido);
+                iniciarContador();
+                
+                // Restaurar las respuestas guardadas
+                cargarRespuestasGuardadas();
+                return true;
+            }
+            return false;
+        }
+
+        // Modificar la función de inicio de prueba
+        function iniciarPrueba() {
+            const nombre = document.getElementById('nombreUsuario').value.trim();
+            if (!nombre) {
+                alert('Por favor, ingresa tu nombre para comenzar');
+                return;
+            }
+
+            // Crear nueva sesión
+            sesionActual = {
+                nombre: nombre,
+                fecha: new Date().toLocaleString(),
+                puntaje: null,
+                respuestas: {}
+            };
+            tiempoInicio = Date.now();
+            
+            // Guardar en localStorage
+            localStorage.setItem('sesionActual', JSON.stringify(sesionActual));
+            localStorage.setItem('tiempoInicio', tiempoInicio.toString());
+
+            // Ocultar pantalla de inicio y mostrar la prueba
+            document.getElementById('pantallaInicio').style.display = 'none';
+            document.getElementById('contenidoPrueba').style.display = 'block';
+            
+            // Iniciar el contador
+            iniciarContador();
+        }
+
+        // Modificar la función de guardado de respuestas
+        function guardarRespuesta(preguntaId, respuesta) {
+            if (sesionActual) {
+                sesionActual.respuestas[preguntaId] = respuesta;
+                localStorage.setItem('sesionActual', JSON.stringify(sesionActual));
+            }
+        }
+
+        // Función para mostrar el historial de intentos
+        function mostrarHistorialIntentos() {
+            const intentos = JSON.parse(localStorage.getItem('intentos') || '[]');
+            const listaIntentos = document.getElementById('listaIntentos');
+            
+            listaIntentos.innerHTML = intentos
+                .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+                .map(intento => `
+                    <div class="intento-previo">
+                        <span>${intento.nombre}</span>
+                        <span>${intento.fecha}</span>
+                        <span>${intento.puntaje !== null ? `${intento.puntaje}%` : 'En progreso'}</span>
+                    </div>
+                `)
+                .join('');
+        }
+
+        // Modificar el evento onload
+        window.onload = async () => {
+            await cargarPreguntas();
+            
+            if (!verificarSesion()) {
+                mostrarHistorialIntentos();
+                document.getElementById('btnIniciar').addEventListener('click', iniciarPrueba);
+            }
+        };
+
+        // Agregar evento para guardar respuestas
+        document.addEventListener('change', function(e) {
+            const pregunta = e.target.closest('.pregunta');
+            if (pregunta) {
+                const preguntaId = pregunta.dataset.id;
+                let respuesta;
+                
+                if (e.target.type === 'radio') {
+                    respuesta = e.target.value;
+                } else if (e.target.classList.contains('codigo-editor')) {
+                    respuesta = e.target.value;
+                }
+                
+                if (respuesta !== undefined) {
+                    guardarRespuesta(preguntaId, respuesta);
+                }
+            }
+        });
+
+        // Función para mostrar modal
+        function mostrarModal(id) {
+            return new Promise((resolve) => {
+                const modal = document.getElementById(id);
+                modal.style.display = 'flex';
+
+                const botones = modal.querySelectorAll('.modal-btn');
+                botones.forEach(btn => {
+                    btn.onclick = () => {
+                        modal.style.display = 'none';
+                        resolve(btn.classList.contains('confirmar'));
+                    };
+                });
+            });
+        }
+
+        // Modificar el evento del botón enviar
+        document.getElementById('btnEnviar').addEventListener('click', async function() {
+            const confirmado = await mostrarModal('modalConfirmacion');
+            if (confirmado) {
+                clearInterval(contadorInterval);
+                finalizarEvaluacionManual();
+            }
+        });
+
+        // Función para finalización manual
+        function finalizarEvaluacionManual() {
+            // Deshabilitar todas las entradas
+            document.querySelectorAll('input, textarea, .edit-button, .copy-button, .save-button').forEach(elemento => {
+                elemento.disabled = true;
+            });
+            
+            // Ocultar el contador y el botón de enviar
+            document.getElementById('contador').style.display = 'none';
+            document.getElementById('btnEnviar').style.display = 'none';
+            
+            // Evaluar y mostrar resultados
+            evaluarRespuestas();
+            
+            // Limpiar la sesión
+            localStorage.removeItem('sesionActual');
+            localStorage.removeItem('tiempoInicio');
+            sesionActual = null;
+        }
+    </script>
+</body>
+</html>
